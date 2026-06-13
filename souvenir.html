@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卢布朗咖啡店 - 纪念品种类</title>
+    <link rel="shortcut icon" href="./pic/syn.png" type="image/x-icon">
+    <style>
+       
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            height: 100vh;
+            background: #94746e;
+            z-index: -1;
+            overflow-x: hidden;
+            user-select: none;
+        }
+        .gridline {
+            position: absolute;
+            left: -20vw;
+            width: 120vw;
+            height: 100vh;
+            animation: move 18s infinite ease-out;
+        }
+        .rows {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+        .row {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            width: 7%;
+        }
+        .cols {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            flex-direction: column;
+        }
+        .col {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            height: 7%;
+        }
+        @keyframes move {
+            100% {
+                transform: translateX(20vw);
+            }
+        }
+        /* 页面专属样式 */
+        .container {
+            position: relative;
+            width: 90%;
+            margin: 0 auto;
+            padding-top: 5vh;
+        }
+        .header {
+            background-color: #EFDFC7;
+            padding: 2rem;
+            border: 4px solid #94746e;
+            margin-bottom: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .header:hover {
+            transform: scale(1.02);
+        }
+        .header h1 {
+            color: #94746e;
+            font-size: 48px;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+        }
+        .header p {
+            color: #94746e;
+            font-size: 20px;
+            font-style: italic;
+        }
+        .souvenir-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .souvenir-card {
+            background-color: #EFDFC7;
+            border: 3px solid #94746e;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .souvenir-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .souvenir-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            transform: rotate(-5deg);
+        }
+        .souvenir-card h3 {
+            color: #94746e;
+            font-size: 20px;
+            margin-bottom: 0.5rem;
+        }
+        .souvenir-card p {
+            color: #702828;
+            font-size: 14px;
+        }
+        .back-btn {
+            position: fixed;
+            bottom: 5vh;
+            right: 5vw;
+            background-color: #EFDFC7;
+            border: 3px solid #94746e;
+            padding: 1rem 2rem;
+            color: #94746e;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="gridline">
+        <div class="rows">
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+        </div>
+        <div class="cols">
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <div class="header">
+            <h1>纪念品种类 (8种)</h1>
+            <p>收藏卢布朗的专属美好</p>
+        </div>
+        <div class="souvenir-list">
+            <div class="souvenir-card">
+                <img src="./pic/9.png" alt="卢布朗马克杯">
+                <h3>卢布朗马克杯</h3>
+                <p>复古花纹，陶瓷材质</p>
+            </div>
+            <div class="souvenir-card">
+                <img src="./pic/12.png" alt="咖啡豆礼盒">
+                <h3>精品咖啡豆礼盒</h3>
+                <p>多款产地咖啡豆组合</p>
+            </div>
+            <div class="souvenir-card">
+                <img src="./pic/1.png" alt="咖啡勺">
+                <h3>雕花咖啡勺</h3>
+                <p>黄铜材质，手工雕花</p>
+            </div>
+            <div class="souvenir-card">
+                <img src="./pic/4.png" alt="店铺徽章">
+                <h3>卢布朗徽章</h3>
+                <p>金属徽章，限量款</p>
+            </div>
+            <div class="souvenir-card">
+                <img src="./pic/6.png" alt="帆布包">
+                <h3>复古帆布包</h3>
+                <p>耐磨帆布，印店铺LOGO</p>
+            </div>
+            <div class="souvenir-card">
+                <img src="./pic/10.png" alt="纪念徽章（店长款）">
+                <h3>纪念徽章（店长款）</h3>
+                <p>不同风格，复古印刷</p>
+            </div>
+            <div class="souvenir-card">
+                <img src="./pic/111.png" alt="纪念徽章（侦探款）">
+                <h3>纪念徽章（侦探款）</h3>
+                <p>不同风格，复古印刷</p>
+            </div>
+            <div class="souvenir-card">
+                <img src="./pic/7.png" alt="手提箱">
+                <h3>手提箱</h3>
+                <p>轻松便捷</p>
+            </div>
+        </div>
+        <button class="back-btn" onclick="window.location.href='index.html'">返回主页</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卢布朗咖啡店 - 饮品种类</title>
+    <link rel="shortcut icon" href="./pic/syn.png" type="image/x-icon">
+    <style>
+        
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            height: 100vh;
+            background: #94746e;
+            z-index: -1;
+            overflow-x: hidden;
+            user-select: none;
+        }
+        .gridline {
+            position: absolute;
+            left: -20vw;
+            width: 120vw;
+            height: 100vh;
+            animation: move 18s infinite ease-out;
+        }
+        .rows {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+        .row {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            width: 7%;
+        }
+        .cols {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            flex-direction: column;
+        }
+        .col {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            height: 7%;
+        }
+        @keyframes move {
+            100% {
+                transform: translateX(20vw);
+            }
+        }
+        /* 页面专属样式 */
+        .container {
+            position: relative;
+            width: 90%;
+            margin: 0 auto;
+            padding-top: 5vh;
+        }
+        .header {
+            background-color: #EFDFC7;
+            padding: 2rem;
+            border: 4px solid #94746e;
+            margin-bottom: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .header:hover {
+            transform: scale(1.02);
+        }
+        .header h1 {
+            color: #94746e;
+            font-size: 48px;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+        }
+        .header p {
+            color: #94746e;
+            font-size: 20px;
+            font-style: italic;
+        }
+        .drink-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .drink-card {
+            background-color: #EFDFC7;
+            border: 3px solid #94746e;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .drink-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .drink-card img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            transform: rotate(-5deg);
+        }
+        .drink-card h3 {
+            color: #94746e;
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+        }
+        .drink-card p {
+            color: #702828;
+            font-size: 16px;
+        }
+        .back-btn {
+            position: fixed;
+            bottom: 5vh;
+            right: 5vw;
+            background-color: #EFDFC7;
+            border: 3px solid #94746e;
+            padding: 1rem 2rem;
+            color: #94746e;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="gridline">
+        <div class="rows">
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+        </div>
+        <div class="cols">
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <div class="header">
+            <h1>饮品种类 (6种)</h1>
+            <p>每一杯都是匠心制作</p>
+        </div>
+        <div class="drink-list">
+            <div class="drink-card">
+                <img src="./pic/9.png" alt="卢布朗极致咖啡">
+                <h3>卢布朗极致咖啡</h3>
+                <p>经典意式浓缩，醇厚回甘</p>
+            </div>
+            <div class="drink-card">
+                <img src="./pic/5.png" alt="焦糖玛奇朵">
+                <h3>焦糖玛奇朵</h3>
+                <p>丝滑奶泡+焦糖脆片，甜而不腻</p>
+            </div>
+            <div class="drink-card">
+                <img src="./pic/柠檬水.jpg" alt="冰摇柠檬茶">
+                <h3>冰摇柠檬茶</h3>
+                <p>清爽解腻，夏日必备</p>
+            </div>
+            <div class="drink-card">
+                <img src="./pic/抹茶拿铁.jpg" alt="抹茶拿铁">
+                <h3>抹茶拿铁</h3>
+                <p>宇治抹茶+鲜奶，茶香浓郁</p>
+            </div>
+            <div class="drink-card">
+                <img src="./pic/8.png" alt="冷萃咖啡">
+                <h3>冷萃咖啡</h3>
+                <p>低温慢萃，酸度更低</p>
+            </div>
+            <div class="drink-card">
+                <img src="./pic/1.png" alt="香草拿铁">
+                <h3>香草拿铁</h3>
+                <p>香草风味+绵密奶泡，温柔治愈</p>
+            </div>
+        </div>
+        <button class="back-btn" onclick="window.location.href='index.html'">返回主页</button>
+    </div>
+</body>
+</html>

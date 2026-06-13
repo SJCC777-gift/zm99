@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卢布朗咖啡店 - 注册</title>
+    <link rel="shortcut icon" href="./pic/syn.png" type="image/x-icon">
+    <style>
+        /* 原有样式全部保留，仅调整尺寸 */
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            height: 100vh;
+            background: #94746e;
+            z-index: -1;
+            overflow-x: hidden;
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .gridline {
+            position: absolute;
+            left: -20vw;
+            width: 120vw;
+            height: 100vh;
+            animation: move 18s infinite ease-out;
+            z-index: -1;
+        }
+        .rows {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+        .row {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            width: 7%;
+        }
+        .cols {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            flex-direction: column;
+        }
+        .col {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            height: 7%;
+        }
+        @keyframes move {
+            100% {
+                transform: translateX(20vw);
+            }
+        }
+        /* 缩小盒子宽度、内边距，解决溢出 */
+        .register-box {
+            background-color: #EFDFC7;
+            border: 5px solid #94746e;
+            width: 320px; /* 原450px → 改为320px */
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+        .register-box:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .register-box h1 {
+            color: #94746e;
+            font-size: 36px;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+        }
+        .input-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            color: #94746e;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 16px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 3px solid #94746e;
+            background-color: #fff;
+            font-size: 15px;
+            color: #702828;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .input-group input:focus {
+            border-color: #702828;
+        }
+        .btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #94746e;
+            color: #EFDFC7;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        .btn:hover {
+            background-color: #702828;
+        }
+        .link {
+            color: #94746e;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .link a {
+            color: #702828;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- 网格背景 -->
+    <div class="gridline">
+        <div class="rows">
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div>
+        </div>
+        <div class="cols">
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+        </div>
+    </div>
+
+    <!-- 注册框 -->
+    <div class="register-box">
+        <h1>注册</h1>
+        <form>
+            <div class="input-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" placeholder="设置你的用户名" required>
+            </div>
+            <div class="input-group">
+                <label for="email">邮箱</label>
+                <input type="email" id="email" placeholder="输入你的邮箱" required>
+            </div>
+            <div class="input-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" placeholder="设置你的密码" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm-pwd">确认密码</label>
+                <input type="password" id="confirm-pwd" placeholder="再次输入密码" required>
+            </div>
+            <button type="submit" class="btn">注册</button>
+            <div class="link">
+                已有账号？<a href="login.html">立即登录</a>
+                <br>
+                <a href="index.html">返回主页</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

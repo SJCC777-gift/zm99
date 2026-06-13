@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手账本照片集</title>
+    <link rel="shortcut icon" href="./pic/syn.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: #94746e;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Microsoft Yahei", serif;
+            overflow-x: hidden;
+        }
+
+       
+        .gridline {
+            position: fixed;
+            left: -20vw;
+            width: 120vw;
+            height: 100vh;
+            animation: gridMove 18s infinite ease-out;
+            z-index: 0;
+        }
+        .rows {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+        .row {
+            border: 1px solid rgba(255, 255, 0.4);
+            width: 7%;
+        }
+        .cols {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            flex-direction: column;
+        }
+        .col {
+            border: 1px solid rgba(255, 255, 0.4);
+            height: 7%;
+        }
+        @keyframes gridMove {
+            100% { transform: translateX(20vw); }
+        }
+
+        
+        .notebook {
+            position: relative;
+            width: 90vw;
+            max-width: 1200px;
+            height: 85vh;
+            background: #EFDFC7;
+            border: 8px solid #7a5c56;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        
+        .notebook-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .page {
+            min-width: 100%;
+            height: 100%;
+            background: #f8f0e3;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(116, 88, 78, 0.1);
+            overflow-y: auto;
+        }
+
+        
+        .page::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(transparent 0px, transparent 29px, #d4b898 30px),
+                linear-gradient(to right, transparent 20px, rgba(148, 116, 110, 0.1) 20px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .page-hole {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #94746e;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .page-hole::after {
+            content: "";
+            position: absolute;
+            top: 4rem;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #94746e;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        
+        .page-wrap {
+            display: flex;
+            gap: 3rem;
+            width: 100%;
+            height: 80%;
+            align-items: center;
+        }
+        .item-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .img-box {
+            width: 100%;
+        }
+        .img-box img {
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 6px 12px rgba(116, 88, 78, 0.3);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+        .img-box img:hover {
+            transform: rotate(0deg) scale(1.03);
+        }
+
+        
+        .text-box {
+            color: #5c4540;
+            line-height: 1.8;
+        }
+        .text-title {
+            font-size: 22px;
+            color: #94746e;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px dashed #b8a098;
+        }
+        .text-desc {
+            font-size: 14px;
+            color: #7a5c56;
+        }
+        .text-tag {
+            display: inline-block;
+            background: #e8d4bc;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-top: 0.6rem;
+            font-size: 12px;
+            border: 1px solid #94746e;
+        }
+
+        /* 翻页按钮 */
+        .page-btn {
+            position: absolute;
+            bottom: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #94746e;
+            color: #EFDFC7;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+        .prev-btn {
+            left: 2rem;
+        }
+        .next-btn {
+            right: 2rem;
+        }
+        .page-btn:hover {
+            background: #7a5c56;
+            transform: scale(1.1);
+        }
+
+        /* 返回首页按钮 */
+        .back-index {
+            position: absolute;
+            bottom: 2rem;
+            right: 8rem;
+            padding: 8px 20px;
+            background: #94746e;
+            color: #EFDFC7;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+        .back-index:hover {
+            background: #7a5c56;
+        }
+
+        
+        .sticker {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #e8d4bc;
+            border: 2px solid #94746e;
+            border-radius: 8px;
+            transform: rotate(15deg);
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: #94746e;
+        }
+        .sticker-1 {
+            top: 2rem;
+            left: 2rem;
+        }
+        .sticker-2 {
+            bottom: 4rem;
+            right: 4rem;
+            transform: rotate(-10deg);
+        }
+
+        
+        @media (max-width: 768px) {
+            .page-wrap {
+                flex-direction: column;
+                height: auto;
+                gap: 2rem;
+            }
+            .notebook {
+                height: 90vh;
+                width: 95vw;
+            }
+            .page {
+                padding: 1rem;
+            }
+            .back-index {
+                right: 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 动态网格背景 -->
+    <div class="gridline">
+        <div class="rows">
+            <div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div>
+            <div class="row"></div><div class="row"></div><div class="row"></div>
+        </div>
+        <div class="cols">
+            <div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div>
+            <div class="col"></div><div class="col"></div><div class="col"></div>
+        </div>
+    </div>
+
+    <!-- 手账本主体 -->
+    <div class="notebook">
+
+        <!-- 返回首页 -->
+        <button class="back-index" onclick="location.href='index.html'">返回首页</button>
+
+        <button class="page-btn prev-btn" id="prevBtn">←</button>
+        <button class="page-btn next-btn" id="nextBtn">→</button>
+
+        
+        <div class="notebook-content" id="notebookContent">
+            <!-- 第1页 -->
+            <div class="page">
+                <div class="page-hole"></div>
+                <div class="page-wrap">
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/xt.jpg" alt="小桃">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">路好远思念也好长！</h3>
+                            <p class="text-desc">小桃</p>
+                            <span class="text-tag">2026.5.2</span>
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/xc.jpg" alt="酸奶好好喝">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">感谢大蕼白浮鱼的馈赠！</h3>
+                            <p class="text-desc">小春</p>
+                            <span class="text-tag">2026.4.14</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第2页 -->
+            <div class="page">
+                <div class="page-hole"></div>
+                <div class="page-wrap">
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/xy.jpg" alt="770">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">770潜入主明宫殿实况</h3>
+                            <p class="text-desc">萧言</p>
+                            <span class="text-tag">2026.4.10</span>
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/x7.png" alt="小7">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">本入</h3>
+                            <p class="text-desc">小祈</p>
+                            <span class="text-tag">2026.6.11</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第3页 -->
+            <div class="page">
+                <div class="page-hole"></div>
+                <div class="page-wrap">
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/wy.png.jpg" alt="wy">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">关注侦探王子喵</h3>
+                            <p class="text-desc">五月</p>
+                            <span class="text-tag">2026.5.8</span>
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/xy2.png" alt="xy">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">明智团长不想在这里</h3>
+                            <p class="text-desc">萧言</p>
+                            <span class="text-tag">2026.5.8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- 第4页 -->
+            <div class="page">
+                <div class="page-hole"></div>
+                <div class="page-wrap">
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/400.jpg" alt="400">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">火锅！</h3>
+                            <p class="text-desc">蕼白</p>
+                            <span class="text-tag">2026.4.12</span>
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/主明99.jpg" alt="主明99">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">主明太好吃了</h3>
+                            <p class="text-desc">All</p>
+                            <span class="text-tag">2026.4.12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第5页 -->
+            <div class="page">
+                <div class="page-hole"></div>
+                <div class="page-wrap">
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/xy3.jpg" alt="xy">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">我的忧郁让长沙连下一个月雨真是抱歉</h3>
+                            <p class="text-desc">萧言</p>
+                            <span class="text-tag">2026.4.12</span>
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/wy2.jpg" alt="wy">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">不知道，8+1很好喝——未成年小7</h3>
+                            <p class="text-desc">五月、小桃、萧言、小春</p>
+                            <span class="text-tag">2026.5.3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                         <!-- 第6页 -->
+            <div class="page">
+                <div class="page-hole"></div>
+                <div class="page-wrap">
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/gg.jpg" alt="锅锅">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">芒果开会</h3>
+                            <p class="text-desc">萧言、锅锅</p>
+                            <span class="text-tag">2026.3.7</span>
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/x72.png" alt="小7">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">芒果干</h3>
+                            <p class="text-desc">小祈</p>
+                            <span class="text-tag">2026.？.？？</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                         <!-- 第7页 -->
+            <div class="page">
+                <div class="page-hole"></div>
+                <div class="page-wrap">
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/mn.jpg" alt="玛瑙">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">🎂</h3>
+                            <p class="text-desc">玛瑙</p>
+                            <span class="text-tag">2026.3.7</span>
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="img-box">
+                            <img src="./pic/all.jpg" alt="主明99">
+                        </div>
+                        <div class="text-box">
+                            <h3 class="text-title">著名幸福一辈子就完事了</h3>
+                            <p class="text-desc">All</p>
+                            <span class="text-tag">2026.3.7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const content = document.getElementById('notebookContent');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageList = document.querySelectorAll('.page');
+        const pageWidth = document.querySelector('.page').offsetWidth;
+
+        let currentIndex = 0;
+        const totalPage = pageList.length;
+
+        // 平滑滑动切换页面
+        function slidePage() {
+            content.style.transform = `translateX(-${currentIndex * pageWidth}px)`;
+        }
+
+        // 上一页
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                slidePage();
+            }
+        });
+
+        // 下一页
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalPage - 1) {
+                currentIndex++;
+                slidePage();
+            }
+        });
+
+        // 键盘左右箭头翻页
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                currentIndex--;
+                slidePage();
+            }
+            if (e.key === 'ArrowRight' && currentIndex < totalPage - 1) {
+                currentIndex++;
+                slidePage();
+            }
+        });
+    </script>
+</body>
+</html>
