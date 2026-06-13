@@ -55,10 +55,15 @@
         </div>
 
     </div>
+    <div class="nav-btn">
+        <button onclick="location.href='login.html'">登录</button>
+        <button onclick="location.href='register.html'">注册</button>
+    </div>
+
     <!-- 主盒子 -->
     <div class="box">
         <!-- 左侧 -->
-        <div class="left">
+        <div class="left" >
             <div class="contain">
                 <div class="text">
                     <div class="top">Siestan</div>
@@ -78,18 +83,18 @@
                     <div class="soid"></div>
                 </div>
                 <div class="mid">
-                    <div class="midt">
+                    <div class="midt" onclick="location.href='drinks.html'">
                         <div class="img"></div>
                         <div class="sp">
                             <div class="t1">饮品种类</div>
-                            <div class="t2">360种</div>
+                            <div class="t2">6种</div>
                         </div>
 
                     </div>
                     <div class="midbot">Make it a shop that has is all!</div>
                 </div>
                 <div class="bot">
-                    <div class="l">
+                    <div class="l" onclick="location.href='tea.html'">
                         <div class="sooid">
                             <div class="bold"></div>
                             <div class="bold1"></div>
@@ -97,7 +102,7 @@
                         <div class="img"></div>
                         <div class="sp">
                             <div class="t1">下午茶品种</div>
-                            <div class="t2">540种</div>
+                            <div class="t2">9种</div>
                         </div>
 
 
@@ -107,14 +112,14 @@
                         </div>
                     </div>
                     <div class="r">
-                        <div class="top">
+                        <div class="top" onclick="location.href='souvenir.html'">
                             <div class="sp">
                                 <div class="t1">纪念品种类</div>
-                                <div class="t2">20种</div>
+                                <div class="t2">8种</div>
                             </div>
                             <div class="bottex">ONLY THE BEST!</div>
                         </div>
-                        <div class="bottom">
+                        <div class="bottom" onclick="location.href='photo.html'">
                             <div class="img"></div>
                         </div>
                     </div>
@@ -275,13 +280,13 @@
                     <div class="bottomca">
                         <div class="leftca">
                             <div class="tittext">你认为怪盗团是<span class="strong-white">真实存在</span>的吗？</div>
-                            <div class="askbox">
+                            <div class="askbox" onclick="location.href='message.html'">
                                 <div class="icon"><img src="./pic/11.png.png" alt="" ></div>
                                 <div class="f1"></div>
                                 <div class="f2">Ask around&nbsp;&nbsp;</div>
                                 <div class="f3">打探消息&nbsp;</div>
                             </div>
-                            <div class="askbox ask2">
+                            <div class="askbox ask2" onclick="location.href='message.html'">
                                 <div class="icon">
                                     <img src="./pic/22.png.png" alt="">
                                 </div>
@@ -400,14 +405,14 @@
                     </div>
                     <div class="bottomca">
                         <div class="leftca">
-                            <div class="tittext">侦探王子是否应该封杀？</div>
-                            <div class="askbox">
+                            <div class="tittext">侦探王子是否是<strong>正义的化身？</strong></strong></div>
+                            <div class="askbox" onclick="location.href='message.html'">
                                 <div class="icon"><img src="./pic/11.png.png" alt=""></div>
                                 <div class="f1"></div>
                                 <div class="f2">Ask around&nbsp;&nbsp;</div>
                                 <div class="f3">打探消息&nbsp;</div>
                             </div>
-                            <div class="askbox ask2">
+                            <div class="askbox ask2" onclick="location.href='message.html'">
                                 <div class="icon">
                                     <img src="./pic/22.png.png" alt="">
                                 </div>
@@ -463,7 +468,6 @@
 
         </div>
     </div>
-
 
 </body>
 
@@ -1832,4 +1836,18 @@
     font-size: 110% !important;
     text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 1px #000 !important;
 }
+ .nav-btn{
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            z-index: 9999;
+        }
+        .nav-btn button{
+            background: #EFDFC7;
+            border: 3px solid #94746e;
+            padding: 5px 12px;
+            margin-left: 8px;
+            color: #94746e;
+            cursor: pointer;
+        }
 </style>
